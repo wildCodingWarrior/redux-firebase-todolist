@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import { styled } from "styled-components";
+import Layout from "./shared/Layout";
+import TodoInput from "./components/TodoInput";
+import TodoList from "./components/TodoList";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <AppTitle>리덕스로 만드는 투두리스트</AppTitle>
+      <TodoInput />
+      <TodoList />
+    </Layout>
   );
-}
+};
 
 export default App;
+
+const AppTitle = styled.h1``;
