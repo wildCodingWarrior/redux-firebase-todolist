@@ -1,26 +1,9 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { styled } from "styled-components";
-import { addTodo } from "../redux/modules/todoSlice";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../firebase";
+import { useInput } from "../hooks/useInput";
 
 const TodoInput = () => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-
-  const dispatch = useDispatch();
-
-  const handleClick = async () => {
-    const newTodo = {
-      title,
-      content,
-      isDone: false,
-    };
-
-    dispatch(addTodo(newTodo));
-    await addDoc(collection(db, "todos"), newTodo);
-  };
+  const { content, handleClick, setContent, setTitle, title } = useInput();
 
   return (
     <TodoInputContainer>

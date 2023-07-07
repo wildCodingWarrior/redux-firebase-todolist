@@ -1,28 +1,12 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { styled } from "styled-components";
-import { updateTodo, deleteTodo } from "../redux/modules/todoSlice";
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { useTodo } from "../hooks/useTodo";
 
 const TodoItem = (props) => {
   const { todo } = props;
   const { id, title, content, isDone } = todo;
 
-  const dispatch = useDispatch();
-
-  const handleClickForUpdate = async () => {
-    dispatch(updateTodo(id));
-    await updateDoc(doc(db, "todos", id), {
-      ...todo,
-      isDone: !isDone,
-    });
-  };
-
-  const handleClickForDelete = async () => {
-    dispatch(deleteTodo(id));
-    await deleteDoc(doc(db, "todos", id));
-  };
+  const { updateTodo, deleteTodo } = useTodo();
 
   return (
     <TodoItemContainer>
@@ -30,14 +14,14 @@ const TodoItem = (props) => {
       <div>{content}</div>
       <div
         onClick={() => {
-          handleClickForUpdate();
+          updateTodo(todo);
         }}
       >
         {isDone ? "취소" : "완료"}
       </div>
       <div
         onClick={() => {
-          handleClickForDelete();
+          deleteTodo(id);
         }}
       >
         삭제

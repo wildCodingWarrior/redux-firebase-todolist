@@ -1,16 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { styled } from "styled-components";
 import TodoItem from "./TodoItem";
-import { useDispatch, useSelector } from "react-redux";
-import { __getTodos } from "../redux/modules/todoSlice";
+import { useSelector } from "react-redux";
+import { useTodo } from "../hooks/useTodo";
 
 const TodoList = () => {
   const { todos } = useSelector((state) => state.todoReducer);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(__getTodos());
-  }, []);
+  useTodo();
 
   return (
     <TodoListContainer>
