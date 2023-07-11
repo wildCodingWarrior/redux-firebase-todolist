@@ -21,6 +21,7 @@ export const useTodo = () => {
   const updateTodo = (todoItem) => {
     dispatch(__updateTodo(todoItem));
   };
+
   const deleteTodo = (todoId) => {
     dispatch(__deleteTodo(todoId));
   };
