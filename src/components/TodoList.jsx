@@ -1,13 +1,11 @@
 import React from "react";
 import { styled } from "styled-components";
 import TodoItem from "./TodoItem";
-import { useSelector } from "react-redux";
-import { useTodo } from "../hooks/useTodo";
+import { useQuery } from "@tanstack/react-query";
+import { getTodos } from "../api/todos";
 
 const TodoList = () => {
-  const { todos } = useSelector((state) => state.todoReducer);
-
-  useTodo();
+  const { data: todos } = useQuery({ queryKey: ["todos"], queryFn: getTodos });
 
   return (
     <TodoListContainer>

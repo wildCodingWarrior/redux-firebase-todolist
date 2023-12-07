@@ -2,11 +2,17 @@ import React from "react";
 import GlobalStyle from "../styles/GlobalStyle";
 import { styled } from "styled-components";
 
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
 const Layout = ({ children }) => {
   return (
     <PageLayout>
-      <GlobalStyle />
-      <ContentLayout>{children}</ContentLayout>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyle />
+        <ContentLayout>{children}</ContentLayout>
+      </QueryClientProvider>
     </PageLayout>
   );
 };

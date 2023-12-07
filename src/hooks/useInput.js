@@ -1,11 +1,21 @@
 import { useState } from "react";
-import { useTodo } from "./useTodo";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addTodoItem } from "../api/todos";
 
 export const useInput = () => {
-  const { addTodo } = useTodo();
-
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  const queryClient = useQueryClient();
+
+  const { mutate: addTodo } = useMutation({
+    mutationFn: addTodoItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries("todos");
+      setTitle("");
+      setContent("");
+    },
+  });
 
   const handleClick = async () => {
     const newTodo = {
