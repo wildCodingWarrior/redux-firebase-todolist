@@ -1,11 +1,10 @@
 import React from "react";
 import { styled } from "styled-components";
 import TodoItem from "./TodoItem";
-import { useQuery } from "@tanstack/react-query";
-import { getTodos } from "../api/todos";
+import { useTodos } from "../hooks/useTodos";
 
 const TodoList = () => {
-  const { data: todos } = useQuery({ queryKey: ["todos"], queryFn: getTodos });
+  const { todos } = useTodos();
 
   return (
     <TodoListContainer>

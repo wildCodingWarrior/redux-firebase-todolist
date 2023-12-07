@@ -1,27 +1,12 @@
 import React from "react";
 import { styled } from "styled-components";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteTodoItem, updateTodoItem } from "../api/todos";
+import { useTodos } from "../hooks/useTodos";
 
 const TodoItem = (props) => {
   const { todo } = props;
   const { id, title, content, isDone } = todo;
 
-  const queryClient = useQueryClient();
-
-  const updateTodoMutation = useMutation({
-    mutationFn: updateTodoItem,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: "todos" });
-    },
-  });
-
-  const deleteTodoMutation = useMutation({
-    mutationFn: deleteTodoItem,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: "todos" });
-    },
-  });
+  const { updateTodo, deleteTodo } = useTodos();
 
   return (
     <TodoItemContainer>
@@ -31,14 +16,14 @@ const TodoItem = (props) => {
         onClick={() => {
           const newTodo = { ...todo, isDone: !isDone };
 
-          updateTodoMutation.mutate(newTodo);
+          updateTodo(newTodo);
         }}
       >
         {isDone ? "취소" : "완료"}
       </div>
       <div
         onClick={() => {
-          deleteTodoMutation.mutate(id);
+          deleteTodo(id);
         }}
       >
         삭제
