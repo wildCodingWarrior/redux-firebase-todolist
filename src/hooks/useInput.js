@@ -11,7 +11,7 @@ export const useInput = () => {
   const { mutate: addTodo } = useMutation({
     mutationFn: addTodoItem,
     onSuccess: () => {
-      queryClient.invalidateQueries("todos");
+      queryClient.invalidateQueries({ queryKey: "todos" });
       setTitle("");
       setContent("");
     },

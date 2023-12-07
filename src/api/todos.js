@@ -11,7 +11,6 @@ export const addTodoItem = async (todo) => {
 };
 
 export const updateTodoItem = async (todo) => {
-  console.log("todos", todo);
   const response = await baseApi.patch(`/todos/${todo.id}`, todo);
   return response.data;
 };

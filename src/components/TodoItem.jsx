@@ -9,17 +9,17 @@ const TodoItem = (props) => {
 
   const queryClient = useQueryClient();
 
-  const { mutate: updateTodo } = useMutation({
+  const updateTodoMutation = useMutation({
     mutationFn: updateTodoItem,
     onSuccess: () => {
-      queryClient.invalidateQueries("todos");
+      queryClient.invalidateQueries({ queryKey: "todos" });
     },
   });
 
-  const { mutate: deleteTodo } = useMutation({
+  const deleteTodoMutation = useMutation({
     mutationFn: deleteTodoItem,
     onSuccess: () => {
-      queryClient.invalidateQueries("todos");
+      queryClient.invalidateQueries({ queryKey: "todos" });
     },
   });
 
@@ -31,14 +31,14 @@ const TodoItem = (props) => {
         onClick={() => {
           const newTodo = { ...todo, isDone: !isDone };
 
-          updateTodo(newTodo);
+          updateTodoMutation.mutate(newTodo);
         }}
       >
         {isDone ? "취소" : "완료"}
       </div>
       <div
         onClick={() => {
-          deleteTodo(id);
+          deleteTodoMutation.mutate(id);
         }}
       >
         삭제

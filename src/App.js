@@ -6,7 +6,7 @@ import TodoList from "./components/TodoList";
 const App = () => {
   return (
     <Layout>
-      <AppTitle>리덕스로 만드는 투두리스트</AppTitle>
+      <AppTitle>JSON SERVER로 만드는 투두리스트</AppTitle>
       <TodoInput />
       <TodoList />
     </Layout>
